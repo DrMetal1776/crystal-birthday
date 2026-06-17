@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Crystal!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0520; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem 1rem; }
+    .card {
+      background: linear-gradient(160deg, #1a0a2e 0%, #2d1054 40%, #1a0a2e 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .stars { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+    .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite alternate; }
+    @keyframes twinkle { from { opacity: 0.3; transform: scale(1); } to { opacity: 1; transform: scale(1.3); } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes dance { 0%, 100% { transform: rotate(-5deg) translateY(0); } 25% { transform: rotate(5deg) translateY(-5px); } 50% { transform: rotate(-3deg) translateY(-8px); } 75% { transform: rotate(3deg) translateY(-3px); } }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(800px) rotate(720deg); opacity: 0; } }
+    .name { font-family: 'Dancing Script', cursive; font-size: 48px; color: #FFD700; text-align: center; text-shadow: 0 0 20px rgba(255,215,0,0.5); animation: float 3s ease-in-out infinite; margin-bottom: 0.25rem; }
+    .subtitle { text-align: center; color: #e8b4e8; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
+    .icons-row { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+    .icon-block { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+    .icon-emoji { font-size: 48px; display: block; }
+    .icon-emoji.dancing { animation: dance 1.5s ease-in-out infinite; }
+    .icon-emoji.walle { animation: bounce 2s ease-in-out infinite; }
+    .icon-emoji.music { animation: heartbeat 1.5s ease-in-out infinite; }
+    .icon-label { color: #e8b4e8; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+    .message-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,215,0,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+    .message { color: white; font-size: 15px; line-height: 1.8; }
+    .message span { color: #FFD700; font-weight: 600; }
+    .lyrics { background: rgba(255,215,0,0.08); border-left: 3px solid #FFD700; border-radius: 0 12px 12px 0; padding: 1rem 1.5rem; margin-bottom: 1.5rem; font-style: italic; color: #ffe066; font-size: 14px; line-height: 1.8; text-align: center; }
+    .lyrics .credit { font-size: 11px; color: #e8b4e8; font-style: normal; margin-top: 8px; display: block; }
+    .walle-msg { display: none; text-align: center; color: #7FFFD4; font-size: 14px; margin-bottom: 1rem; animation: float 2s ease-in-out infinite; }
+    .walle-msg.show { display: block; }
+    .cta-btn { display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #FFD700, #FF8C00); border: none; border-radius: 50px; color: #1a0a2e; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: transform 0.2s; }
+    .cta-btn:hover { transform: scale(1.03); }
+    .confetti { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: fall linear infinite; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="stars" id="stars"></div>
+    <div class="name">Happy Birthday, Crystal!</div>
+    <div class="subtitle">🎂 Today is all about you 🎂</div>
+    <div class="icons-row">
+      <div class="icon-block" onclick="walleSpeak()">
+        <span class="icon-emoji walle">🤖</span>
+        <span class="icon-label">Wall-E says hi</span>
+      </div>
+      <div class="icon-block" onclick="startDance()">
+        <span class="icon-emoji dancing" id="dancer">💃</span>
+        <span class="icon-label">Keep dancing</span>
