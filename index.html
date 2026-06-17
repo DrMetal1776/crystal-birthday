@@ -4,60 +4,141 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Crystal!</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #0d0520; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 2rem 1rem; }
-    .card {
-      background: linear-gradient(160deg, #1a0a2e 0%, #2d1054 40%, #1a0a2e 100%);
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 480px;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .stars { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+    body { background: #0d0520; display: flex; justify-content: center; min-height: 100vh; padding: 2rem 1rem; }
+    .card { background: #1a0a2e; border-radius: 20px; padding: 2rem; max-width: 480px; width: 100%; position: relative; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+    @keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes dance { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg) translateY(-8px); } }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(900px) rotate(720deg); opacity: 0; } }
+    .stars { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; }
     .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite alternate; }
-    @keyframes twinkle { from { opacity: 0.3; transform: scale(1); } to { opacity: 1; transform: scale(1.3); } }
-    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-    @keyframes dance { 0%, 100% { transform: rotate(-5deg) translateY(0); } 25% { transform: rotate(5deg) translateY(-5px); } 50% { transform: rotate(-3deg) translateY(-8px); } 75% { transform: rotate(3deg) translateY(-3px); } }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(800px) rotate(720deg); opacity: 0; } }
-    .name { font-family: 'Dancing Script', cursive; font-size: 48px; color: #FFD700; text-align: center; text-shadow: 0 0 20px rgba(255,215,0,0.5); animation: float 3s ease-in-out infinite; margin-bottom: 0.25rem; }
-    .subtitle { text-align: center; color: #e8b4e8; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
-    .icons-row { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
-    .icon-block { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
-    .icon-emoji { font-size: 48px; display: block; }
-    .icon-emoji.dancing { animation: dance 1.5s ease-in-out infinite; }
-    .icon-emoji.walle { animation: bounce 2s ease-in-out infinite; }
-    .icon-emoji.music { animation: heartbeat 1.5s ease-in-out infinite; }
+    .content { position: relative; z-index: 1; }
+    .name { font-family: 'Dancing Script', cursive; font-size: 48px; color: #FFD700; text-align: center; animation: float 3s ease-in-out infinite; margin-bottom: 4px; }
+    .subtitle { text-align: center; color: #e8b4e8; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; }
+    .icons-row { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 2rem; }
+    .icon-block { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+    .icon-block:active { opacity: 0.7; }
+    .emoji { font-size: 48px; line-height: 1; display: block; }
+    .emoji.dance-anim { animation: dance 1.2s ease-in-out infinite; }
+    .emoji.bounce-anim { animation: bounce 2s ease-in-out infinite; }
+    .emoji.pulse-anim { animation: pulse 1.5s ease-in-out infinite; }
     .icon-label { color: #e8b4e8; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
-    .message-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,215,0,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
-    .message { color: white; font-size: 15px; line-height: 1.8; }
-    .message span { color: #FFD700; font-weight: 600; }
-    .lyrics { background: rgba(255,215,0,0.08); border-left: 3px solid #FFD700; border-radius: 0 12px 12px 0; padding: 1rem 1.5rem; margin-bottom: 1.5rem; font-style: italic; color: #ffe066; font-size: 14px; line-height: 1.8; text-align: center; }
-    .lyrics .credit { font-size: 11px; color: #e8b4e8; font-style: normal; margin-top: 8px; display: block; }
-    .walle-msg { display: none; text-align: center; color: #7FFFD4; font-size: 14px; margin-bottom: 1rem; animation: float 2s ease-in-out infinite; }
-    .walle-msg.show { display: block; }
-    .cta-btn { display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #FFD700, #FF8C00); border: none; border-radius: 50px; color: #1a0a2e; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: transform 0.2s; }
-    .cta-btn:hover { transform: scale(1.03); }
-    .confetti { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: fall linear infinite; pointer-events: none; }
+    .msg-box { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,215,0,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+    .msg-box p { color: white; font-size: 15px; line-height: 1.9; }
+    .msg-box span { color: #FFD700; font-weight: 600; }
+    .lyrics-box { border-left: 3px solid #FFD700; padding: 1rem 1.5rem; margin-bottom: 1.5rem; }
+    .lyrics-box p { color: #ffe066; font-style: italic; font-size: 14px; line-height: 1.8; text-align: center; }
+    .lyrics-box small { color: #e8b4e8; font-style: normal; font-size: 11px; display: block; margin-top: 6px; text-align: center; }
+    .walle-bubble { background: rgba(127,255,212,0.1); border: 1px solid rgba(127,255,212,0.4); border-radius: 12px; padding: 12px; margin-bottom: 1.5rem; text-align: center; color: #7FFFD4; font-size: 14px; display: none; }
+    .walle-bubble.visible { display: block; animation: float 2s ease-in-out infinite; }
+    .dance-msg { background: rgba(255,105,180,0.1); border: 1px solid rgba(255,105,180,0.4); border-radius: 12px; padding: 12px; margin-bottom: 1.5rem; text-align: center; color: #FF69B4; font-size: 14px; display: none; }
+    .dance-msg.visible { display: block; animation: float 2s ease-in-out infinite; }
+    .btn { display: block; width: 100%; padding: 14px; background: #FFD700; border: none; border-radius: 50px; color: #1a0a2e; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: transform 0.15s; }
+    .btn:active { transform: scale(0.97); }
+    .confetti-piece { position: absolute; border-radius: 2px; pointer-events: none; animation: fall linear forwards; }
   </style>
 </head>
 <body>
   <div class="card" id="card">
     <div class="stars" id="stars"></div>
-    <div class="name">Happy Birthday, Crystal!</div>
-    <div class="subtitle">🎂 Today is all about you 🎂</div>
-    <div class="icons-row">
-      <div class="icon-block" onclick="walleSpeak()">
-        <span class="icon-emoji walle">🤖</span>
-        <span class="icon-label">Wall-E says hi</span>
+    <div class="content">
+      <div class="name">Happy Birthday, Crystal!</div>
+      <div class="subtitle">🎂 Today is all about you 🎂</div>
+
+      <div class="icons-row">
+        <div class="icon-block" onclick="toggleWalle()">
+          <span class="emoji bounce-anim">🤖</span>
+          <span class="icon-label">Wall-E says hi</span>
+        </div>
+        <div class="icon-block" onclick="toggleDance()">
+          <span class="emoji dance-anim">💃</span>
+          <span class="icon-label">Keep dancing</span>
+        </div>
+        <div class="icon-block" onclick="makeConfetti()">
+          <span class="emoji pulse-anim">🎵</span>
+          <span class="icon-label">Carrie approves</span>
+        </div>
       </div>
-      <div class="icon-block" onclick="startDance()">
-        <span class="icon-emoji dancing" id="dancer">💃</span>
-        <span class="icon-label">Keep dancing</span>
+
+      <div class="walle-bubble" id="walleBubble">
+        🤖 "Eeee-vaaa..." — Wall-E probably, but make it birthday! 🎂
+      </div>
+
+      <div class="dance-msg" id="danceMsg">
+        💃 Dance like it's your birthday — because it IS! 🎉
+      </div>
+
+      <div class="msg-box">
+        <p>
+          Hey Crystal! 🌟 On your special day, we hope you're<br>
+          <span>dancing like nobody's watching</span>,<br>
+          humming your favorite <span>Carrie Underwood</span> songs,<br>
+          and feeling as <span>loved as Wall-E loves Eva</span>. 💛
+        </p>
+      </div>
+
+      <div class="lyrics-box">
+        <p>
+          "Before He Cheats" plays in the distance...<br>
+          but today, only good vibes allowed! 🎸
+        </p>
+        <small>— A birthday tribute to your impeccable taste in music</small>
+      </div>
+
+      <button class="btn" onclick="celebrate()">🎉 Tap to celebrate! 🎉</button>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('card');
+
+    // Generate stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 3 + 1;
+      s.style.cssText = 'width:' + size + 'px;height:' + size + 'px;top:' + (Math.random()*100) + '%;left:' + (Math.random()*100) + '%;animation-delay:' + (Math.random()*2) + 's;animation-duration:' + (1.5+Math.random()*2) + 's;';
+      starsEl.appendChild(s);
+    }
+
+    function makeConfetti() {
+      const colors = ['#FFD700','#FF69B4','#7FFFD4','#FF8C00','#DA70D6','#ffffff','#87CEEB'];
+      for (let i = 0; i < 25; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti-piece';
+        const size = 6 + Math.random() * 8;
+        c.style.cssText = 'left:' + (Math.random()*100) + '%;top:0;width:' + size + 'px;height:' + size + 'px;background:' + colors[Math.floor(Math.random()*colors.length)] + ';animation-duration:' + (2+Math.random()*2) + 's;animation-delay:' + (Math.random()*0.3) + 's;';
+        card.appendChild(c);
+        setTimeout(function(el) { return function() { el.remove(); }; }(c), 4500);
+      }
+    }
+
+    function celebrate() {
+      makeConfetti();
+      setTimeout(makeConfetti, 300);
+      setTimeout(makeConfetti, 600);
+    }
+
+    function toggleWalle() {
+      const el = document.getElementById('walleBubble');
+      el.classList.toggle('visible');
+      makeConfetti();
+    }
+
+    function toggleDance() {
+      const el = document.getElementById('danceMsg');
+      el.classList.toggle('visible');
+      makeConfetti();
+    }
+
+    // Auto celebrate on load
+    setTimeout(celebrate, 500);
+  </script>
+</body>
+</html>
