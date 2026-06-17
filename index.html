@@ -28,18 +28,20 @@
     .emoji.bounce-anim { animation: bounce 2s ease-in-out infinite; }
     .emoji.pulse-anim { animation: pulse 1.5s ease-in-out infinite; }
     .icon-label { color: #e8b4e8; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+    .response-bubble { background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.4); border-radius: 12px; padding: 12px; margin-bottom: 1.5rem; text-align: center; font-size: 15px; display: none; }
+    .response-bubble.visible { display: block; animation: float 2s ease-in-out infinite; }
     .msg-box { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,215,0,0.3); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
     .msg-box p { color: white; font-size: 15px; line-height: 1.9; }
     .msg-box span { color: #FFD700; font-weight: 600; }
     .lyrics-box { border-left: 3px solid #FFD700; padding: 1rem 1.5rem; margin-bottom: 1.5rem; }
     .lyrics-box p { color: #ffe066; font-style: italic; font-size: 14px; line-height: 1.8; text-align: center; }
     .lyrics-box small { color: #e8b4e8; font-style: normal; font-size: 11px; display: block; margin-top: 6px; text-align: center; }
-    .walle-bubble { background: rgba(127,255,212,0.1); border: 1px solid rgba(127,255,212,0.4); border-radius: 12px; padding: 12px; margin-bottom: 1.5rem; text-align: center; color: #7FFFD4; font-size: 14px; display: none; }
-    .walle-bubble.visible { display: block; animation: float 2s ease-in-out infinite; }
-    .dance-msg { background: rgba(255,105,180,0.1); border: 1px solid rgba(255,105,180,0.4); border-radius: 12px; padding: 12px; margin-bottom: 1.5rem; text-align: center; color: #FF69B4; font-size: 14px; display: none; }
-    .dance-msg.visible { display: block; animation: float 2s ease-in-out infinite; }
     .btn { display: block; width: 100%; padding: 14px; background: #FFD700; border: none; border-radius: 50px; color: #1a0a2e; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: transform 0.15s; }
     .btn:active { transform: scale(0.97); }
+    .yt-link { display: none; margin-top: 1rem; text-align: center; }
+    .yt-link.visible { display: block; animation: float 2s ease-in-out infinite; }
+    .yt-btn { display: inline-block; background: #e8b4e8; color: #1a0a2e; font-size: 16px; font-weight: 700; padding: 14px 32px; border-radius: 50px; text-decoration: none; transition: transform 0.15s; }
+    .yt-btn:active { transform: scale(0.97); }
     .confetti-piece { position: absolute; border-radius: 2px; pointer-events: none; animation: fall linear forwards; }
   </style>
 </head>
@@ -47,6 +49,7 @@
   <div class="card" id="card">
     <div class="stars" id="stars"></div>
     <div class="content">
+
       <div class="name">Happy Birthday, Crystal!</div>
       <div class="subtitle">🎂 Today is all about you 🎂</div>
 
@@ -65,11 +68,11 @@
         </div>
       </div>
 
-      <div class="walle-bubble" id="walleBubble">
+      <div class="response-bubble" id="walleBubble" style="color: #7FFFD4;">
         🤖 "Eeee-vaaa..." — Wall-E probably, but make it birthday! 🎂
       </div>
 
-      <div class="dance-msg" id="danceMsg">
+      <div class="response-bubble" id="danceMsg" style="color: #FF69B4;">
         💃 Dance like it's your birthday — because it IS! 🎉
       </div>
 
@@ -87,17 +90,23 @@
           "Before He Cheats" plays in the distance...<br>
           but today, only good vibes allowed! 🎸
         </p>
-        <small>— A birthday tribute to your impeccable taste in music</small>
+        <small>— Tap below to play a special Carrie Underwood song just for you 🎵</small>
       </div>
 
       <button class="btn" onclick="celebrate()">🎉 Tap to celebrate! 🎉</button>
+
+      <div class="yt-link" id="ytLink">
+        <a class="yt-btn" href="https://www.youtube.com/watch?v=e0DV6rXTUvE" target="_blank">
+          🎵 Play Your Special Song 🎵
+        </a>
+      </div>
+
     </div>
   </div>
 
   <script>
     const card = document.getElementById('card');
 
-    // Generate stars
     const starsEl = document.getElementById('stars');
     for (let i = 0; i < 50; i++) {
       const s = document.createElement('div');
@@ -123,21 +132,19 @@
       makeConfetti();
       setTimeout(makeConfetti, 300);
       setTimeout(makeConfetti, 600);
+      document.getElementById('ytLink').classList.add('visible');
     }
 
     function toggleWalle() {
-      const el = document.getElementById('walleBubble');
-      el.classList.toggle('visible');
+      document.getElementById('walleBubble').classList.toggle('visible');
       makeConfetti();
     }
 
     function toggleDance() {
-      const el = document.getElementById('danceMsg');
-      el.classList.toggle('visible');
+      document.getElementById('danceMsg').classList.toggle('visible');
       makeConfetti();
     }
 
-    // Auto celebrate on load
     setTimeout(celebrate, 500);
   </script>
 </body>
